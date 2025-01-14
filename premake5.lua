@@ -31,6 +31,7 @@ workspace "magic_arena"
     IncludeDir = {}
     IncludeDir["magic_arena"] = "%{wks.location}/magic_arena"
     IncludeDir["spdlog"] = "%{wks.location}/vendors/spdlog/include"
+    IncludeDir["doctest"] = "%{wks.location}/vendors/doctest/doctest"
 
     include "magic_arena/premake5.lua"
 

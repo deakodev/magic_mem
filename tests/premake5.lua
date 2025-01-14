@@ -12,9 +12,9 @@ project "tests"
    includedirs
    {
       "%{prj.location}", 
-
 	  "%{IncludeDir.magic_arena}",
      "%{IncludeDir.spdlog}",
+     "%{IncludeDir.doctest}",
    }
 
    links 
