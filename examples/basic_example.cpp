@@ -6,4 +6,6 @@ int main(int argc, char* argv[])
 
 	MC_INFO("Hello, Example!");
 
+	Magic::Arena arena;
+
 }

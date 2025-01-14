@@ -11,11 +11,19 @@
     <ClInclude Include="src\magic_debug.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Arena.h" />
+    <ClInclude Include="src\ArenaBlock.h" />
+    <ClInclude Include="src\MultiThreadArena.h" />
+    <ClInclude Include="src\SingleThreadArena.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="magic_pch.cpp" />
     <ClCompile Include="src\magic_debug.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Arena.cpp" />
+    <ClCompile Include="src\ArenaBlock.cpp" />
+    <ClCompile Include="src\MultiThreadArena.cpp" />
+    <ClCompile Include="src\SingleThreadArena.cpp" />
   </ItemGroup>
 </Project>
