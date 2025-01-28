@@ -13,8 +13,11 @@
     </ClInclude>
     <ClInclude Include="src\Arena.h" />
     <ClInclude Include="src\ArenaBlock.h" />
-    <ClInclude Include="src\MultiThreadArena.h" />
-    <ClInclude Include="src\SingleThreadArena.h" />
+    <ClInclude Include="src\ArenaAllocator.h" />
+    <ClInclude Include="src\ArenaBlockPool.h" />
+    <ClInclude Include="src\ArenaThreadCache.h" />
+    <ClInclude Include="src\ArenaConfig.h" />
+    <ClInclude Include="src\AllocatorType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="magic_pch.cpp" />
@@ -23,7 +26,10 @@
     </ClCompile>
     <ClCompile Include="src\Arena.cpp" />
     <ClCompile Include="src\ArenaBlock.cpp" />
-    <ClCompile Include="src\MultiThreadArena.cpp" />
-    <ClCompile Include="src\SingleThreadArena.cpp" />
+    <ClCompile Include="src\ArenaAllocator.cpp" />
+    <ClCompile Include="src\ArenaBlockPool.cpp" />
+    <ClCompile Include="src\ArenaThreadCache.cpp" />
+    <ClCompile Include="src\ArenaConfig.cpp" />
+    <ClCompile Include="src\AllocatorType.cpp" />
   </ItemGroup>
 </Project>

@@ -7,8 +7,6 @@ namespace Magic {
 
 	ArenaBlock* GetFirstArenaBlock()
 	{
-		std::cout << "GetFirstArenaBlock()" << std::endl;
-
 		return const_cast<ArenaBlock*>(&s_FirstArenaBlock);
 	}
 

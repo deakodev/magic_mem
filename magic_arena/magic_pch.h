@@ -5,3 +5,4 @@
 #include <vector>
 
 #include "src/magic_debug.h"
+#include "src/ArenaConfig.h"
