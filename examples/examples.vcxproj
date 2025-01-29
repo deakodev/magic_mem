@@ -145,7 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="basic_example.cpp" />
+    <ClCompile Include="cpp_example.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\magic_arena\magic_arena.vcxproj">
