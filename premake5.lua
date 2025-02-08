@@ -1,4 +1,4 @@
-workspace "magic_arena"
+workspace "magic_memory"
     architecture "x64"
     startproject "examples"
     configurations { "debug", "release", "dist" }
@@ -29,11 +29,10 @@ workspace "magic_arena"
     OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
 
     IncludeDir = {}
-    IncludeDir["magic_arena"] = "%{wks.location}/magic_arena"
-    IncludeDir["spdlog"] = "%{wks.location}/vendors/spdlog/include"
+    IncludeDir["magic_memory"] = "%{wks.location}/magic_memory"
     IncludeDir["doctest"] = "%{wks.location}/vendors/doctest/doctest"
 
-    include "magic_arena/premake5.lua"
+    include "magic_memory/premake5.lua"
 
     include "examples/premake5.lua"
 

@@ -1,53 +1,96 @@
-#define MAGIC_ARENA_IMPL
-#include <magic_arena.h>
+#include <magic_memory.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
+#include <iostream>
 
-TEST_CASE("Magic_CreateArena")
+TEST_SUITE("magic_arena")
 {
-	size_t capacity = 1024;
-	Magic_Arena arena = Magic_CreateArena(capacity);
+	int status;
 
-	CHECK(arena.Capacity == capacity);
-	CHECK(arena.Memory != nullptr);
-	CHECK(arena.Next == 0);
+	Magic_Arena arena;
+	Magic_Arena* arena_ptr = &arena;
 
-	free(arena.Memory);
+	int data = 7;
+	int* data_ptr = &data;
+	int oversized_data_array[PAGE_SIZE + 1] = { 0 };
+
+	TEST_CASE("magic_arena_allocate")
+	{
+		status = magic_arena_allocate(NULL, PAGE_SIZE);
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_arena_allocate(arena_ptr, 0); /* alloc size sets to min PAGE_SIZE */
+		CHECK(status == MAGIC_STATUS_OK);
+		status = magic_arena_allocate(arena_ptr, PAGE_SIZE);
+		CHECK(status == MAGIC_STATUS_OK);
+	}
+
+	TEST_CASE("magic_arena_write")
+	{
+		status = magic_arena_write(arena_ptr, NULL, sizeof(data));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_arena_write(arena_ptr, (void**)data_ptr, 0);
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_arena_write(arena_ptr, (void**)oversized_data_array, sizeof(oversized_data_array));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_arena_write(arena_ptr, (void**)&data_ptr, sizeof(data));
+		CHECK(status == MAGIC_STATUS_OK);
+		CHECK(*data_ptr == 7);
+	}
 }
 
-TEST_CASE("Magic_Push")
+TEST_SUITE("magic_ring")
 {
-	size_t capacity = 1024;
-	Magic_Arena arena = Magic_CreateArena(capacity);
+	int status;
 
-	SUBCASE("Allocate single item")
+	Magic_Ring ring;
+	Magic_Ring* ring_ptr = &ring;
+
+	int write_data = 7;
+	int* write_data_ptr = &write_data;
+
+	int read_data;
+	int* read_data_ptr = &read_data;
+
+	int oversized_data_array[PAGE_SIZE + 1] = { 0 };
+
+	TEST_CASE("magic_ring_allocate")
 	{
-		int* num_ptr = Magic_Push(&arena, int);
-		REQUIRE(num_ptr != nullptr);
-		*num_ptr = 42;
-		CHECK(*num_ptr == 42);
+		status = magic_ring_allocate(NULL, PAGE_SIZE);
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_allocate(ring_ptr, 0); /* alloc size sets to min PAGE_SIZE */
+		CHECK(status == MAGIC_STATUS_OK);
+		status = magic_ring_allocate(ring_ptr, PAGE_SIZE);
+		CHECK(status == MAGIC_STATUS_OK);
+	}
+	TEST_CASE("magic_ring_write")
+	{
+		status = magic_ring_write(NULL, (void*)write_data_ptr, sizeof(write_data));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_write(ring_ptr, NULL, sizeof(write_data));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_write(ring_ptr, (void*)write_data_ptr, 0);
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_write(ring_ptr, (void*)oversized_data_array, sizeof(oversized_data_array));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_write(ring_ptr, (void*)write_data_ptr, sizeof(write_data));
+		CHECK(status == MAGIC_STATUS_OK);
+		CHECK(*write_data_ptr == 7);
 	}
 
-	SUBCASE("Allocate array of items")
+	TEST_CASE("magic_ring_read")
 	{
-		size_t count = 10;
-		int* array_ptr = Magic_PushArray(&arena, int, count);
-		REQUIRE(array_ptr != nullptr);
-		for (size_t i = 0; i < count; ++i)
-		{
-			array_ptr[i] = static_cast<int>(i);
-		}
-		for (size_t i = 0; i < count; ++i)
-		{
-			CHECK(array_ptr[i] == static_cast<int>(i));
-		}
-	}
-
-	SUBCASE("Handle out of memory")
-	{
-		size_t large_size = capacity * 2;
-		void* ptr = Magic_PushToArena(&arena, large_size, 1);
-		CHECK(ptr == nullptr);
+		status = magic_ring_read(NULL, (void*)read_data_ptr, sizeof(read_data));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_read(ring_ptr, NULL, sizeof(read_data));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_read(ring_ptr, (void*)read_data_ptr, 0);
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_read(ring_ptr, (void*)oversized_data_array, sizeof(oversized_data_array));
+		CHECK(status != MAGIC_STATUS_OK);
+		status = magic_ring_read(ring_ptr, (void*)read_data_ptr, sizeof(read_data));
+		CHECK(status == MAGIC_STATUS_OK);
+		CHECK(*read_data_ptr == 7);
 	}
 }
+

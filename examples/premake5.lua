@@ -12,12 +12,10 @@ project "examples"
    includedirs
    {
       "%{prj.location}", 
-
-	  "%{IncludeDir.magic_arena}",
-     "%{IncludeDir.spdlog}",
+	  "%{IncludeDir.magic_memory}",
    }
 
-   links 
+   links
    {
-      "magic_arena",
+      "magic_memory",
    }

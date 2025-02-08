@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "examples", "examples\examples.vcxproj", "{84D830B1-70A5-8BBC-99BE-796485EAC04A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "magic_arena", "magic_arena\magic_arena.vcxproj", "{6CD470AA-D889-E99F-617E-E376CD32E0A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "magic_memory", "magic_memory\magic_memory.vcxproj", "{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxproj", "{78756B10-E489-93C1-AD0B-372119DF8FF2}"
 EndProject
@@ -20,12 +20,12 @@ Global
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.dist|x64.Build.0 = dist|x64
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.release|x64.ActiveCfg = release|x64
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.release|x64.Build.0 = release|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.debug|x64.ActiveCfg = debug|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.debug|x64.Build.0 = debug|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.dist|x64.ActiveCfg = dist|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.dist|x64.Build.0 = dist|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.release|x64.ActiveCfg = release|x64
-		{6CD470AA-D889-E99F-617E-E376CD32E0A3}.release|x64.Build.0 = release|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.debug|x64.ActiveCfg = debug|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.debug|x64.Build.0 = debug|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.dist|x64.ActiveCfg = dist|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.dist|x64.Build.0 = dist|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.release|x64.ActiveCfg = release|x64
+		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.release|x64.Build.0 = release|x64
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.debug|x64.ActiveCfg = debug|x64
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.debug|x64.Build.0 = debug|x64
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.dist|x64.ActiveCfg = dist|x64

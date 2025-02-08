@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6CD470AA-D889-E99F-617E-E376CD32E0A3}</ProjectGuid>
+    <ProjectGuid>{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>magic_arena</RootNamespace>
+    <RootNamespace>magic_memory</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -54,37 +54,35 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
-    <OutDir>..\bin\windows-x86_64\debug\magic_arena\</OutDir>
-    <IntDir>..\bin\int\windows-x86_64\debug\magic_arena\</IntDir>
-    <TargetName>magic_arena</TargetName>
+    <OutDir>..\bin\windows-x86_64\debug\magic_memory\</OutDir>
+    <IntDir>..\bin\int\windows-x86_64\debug\magic_memory\</IntDir>
+    <TargetName>magic_memory</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
-    <OutDir>..\bin\windows-x86_64\release\magic_arena\</OutDir>
-    <IntDir>..\bin\int\windows-x86_64\release\magic_arena\</IntDir>
-    <TargetName>magic_arena</TargetName>
+    <OutDir>..\bin\windows-x86_64\release\magic_memory\</OutDir>
+    <IntDir>..\bin\int\windows-x86_64\release\magic_memory\</IntDir>
+    <TargetName>magic_memory</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
-    <OutDir>..\bin\windows-x86_64\dist\magic_arena\</OutDir>
-    <IntDir>..\bin\int\windows-x86_64\dist\magic_arena\</IntDir>
-    <TargetName>magic_arena</TargetName>
+    <OutDir>..\bin\windows-x86_64\dist\magic_memory\</OutDir>
+    <IntDir>..\bin\int\windows-x86_64\dist\magic_memory\</IntDir>
+    <TargetName>magic_memory</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>magic_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>MC_PLATFORM_WINDOWS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -94,11 +92,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>magic_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>MC_PLATFORM_WINDOWS;RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -108,7 +105,6 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -120,11 +116,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>magic_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>MC_PLATFORM_WINDOWS;DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -134,7 +129,6 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -145,29 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="magic_arena.h" />
-    <ClInclude Include="magic_pch.h" />
-    <ClInclude Include="src\AllocatorType.h" />
-    <ClInclude Include="src\Arena.h" />
-    <ClInclude Include="src\ArenaBlock.h" />
-    <ClInclude Include="src\ArenaConfig.h" />
-    <ClInclude Include="src\ArenaThreadCache.h" />
-    <ClInclude Include="src\magic_debug.h" />
-    <ClInclude Include="src\ArenaAllocator.h" />
-    <ClInclude Include="src\ArenaBlockPool.h" />
+    <ClInclude Include="magic_error.h" />
+    <ClInclude Include="magic_memory.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="magic_pch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="src\AllocatorType.cpp" />
-    <ClCompile Include="src\Arena.cpp" />
-    <ClCompile Include="src\ArenaBlock.cpp" />
-    <ClCompile Include="src\ArenaConfig.cpp" />
-    <ClCompile Include="src\ArenaThreadCache.cpp" />
-    <ClCompile Include="src\magic_debug.cpp" />
-    <ClCompile Include="src\ArenaAllocator.cpp" />
-    <ClCompile Include="src\ArenaBlockPool.cpp" />
+    <ClCompile Include="magic_arena.c" />
+    <ClCompile Include="magic_error.c" />
+    <ClCompile Include="magic_memory.c" />
+    <ClCompile Include="magic_ring.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
