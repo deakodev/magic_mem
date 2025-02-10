@@ -50,9 +50,9 @@ int magic_arena_write(Magic_Arena* arena, void** data, uint32_t size)
 	// TODO: handle overflow
 	// TODO: alignment check?
 
-	void* dest = arena->memory.data + arena->write_marker;
-	memcpy(dest, *data, size);
-	*data = dest;
+	/*void* dest = arena->memory.data + arena->write_marker;*/
+	//memcpy(dest, *data, size);
+	*data = arena->memory.data + arena->write_marker;
 
 	arena->write_marker += size;
 

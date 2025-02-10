@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "examples", "examples\examples.vcxproj", "{84D830B1-70A5-8BBC-99BE-796485EAC04A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deako", "deako", "{70088718-DCBD-FF0D-65B2-F9E4D166F611}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "deako", "..\..\deako\deako.vcxproj", "{A99F490F-15B4-71C0-DE35-15204A096EF1}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "magic_memory", "magic_memory\magic_memory.vcxproj", "{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxproj", "{78756B10-E489-93C1-AD0B-372119DF8FF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{FD47AE19-69FD-260F-F2F1-20E65EA61D13}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "deako_editor", "..\..\tools\deako_editor\deako_editor.vcxproj", "{0FFD9841-FB5F-28E6-A4E5-609C9027F468}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +28,12 @@ Global
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.dist|x64.Build.0 = dist|x64
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.release|x64.ActiveCfg = release|x64
 		{84D830B1-70A5-8BBC-99BE-796485EAC04A}.release|x64.Build.0 = release|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.debug|x64.ActiveCfg = debug|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.debug|x64.Build.0 = debug|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.dist|x64.ActiveCfg = dist|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.dist|x64.Build.0 = dist|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.release|x64.ActiveCfg = release|x64
+		{A99F490F-15B4-71C0-DE35-15204A096EF1}.release|x64.Build.0 = release|x64
 		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.debug|x64.ActiveCfg = debug|x64
 		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.debug|x64.Build.0 = debug|x64
 		{DE74A213-CAD7-31B8-735D-6A6E5F9FFD3A}.dist|x64.ActiveCfg = dist|x64
@@ -32,8 +46,18 @@ Global
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.dist|x64.Build.0 = dist|x64
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.release|x64.ActiveCfg = release|x64
 		{78756B10-E489-93C1-AD0B-372119DF8FF2}.release|x64.Build.0 = release|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.debug|x64.ActiveCfg = debug|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.debug|x64.Build.0 = debug|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.dist|x64.ActiveCfg = dist|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.dist|x64.Build.0 = dist|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.release|x64.ActiveCfg = release|x64
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468}.release|x64.Build.0 = release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A99F490F-15B4-71C0-DE35-15204A096EF1} = {70088718-DCBD-FF0D-65B2-F9E4D166F611}
+		{0FFD9841-FB5F-28E6-A4E5-609C9027F468} = {FD47AE19-69FD-260F-F2F1-20E65EA61D13}
 	EndGlobalSection
 EndGlobal
