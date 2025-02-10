@@ -85,7 +85,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/EHsc /Zc:preprocessor /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -108,7 +108,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/EHsc /Zc:preprocessor /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -133,7 +133,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/EHsc /Zc:preprocessor /Zc:__cplusplus /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/EHsc /Zc:preprocessor /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>

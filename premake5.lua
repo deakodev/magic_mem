@@ -6,7 +6,7 @@ workspace "magic_memory"
 
     filter "system:windows"
         systemversion "latest"
-        buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus", "/utf-8" }
+        buildoptions { "/EHsc", "/Zc:preprocessor", "/utf-8" }
         defines { "MC_PLATFORM_WINDOWS" }
 
     filter "configurations:debug"
@@ -31,6 +31,7 @@ workspace "magic_memory"
     IncludeDir = {}
     IncludeDir["magic_memory"] = "%{wks.location}/magic_memory"
     IncludeDir["doctest"] = "%{wks.location}/vendors/doctest/doctest"
+    IncludeDir["clay"] = "%{wks.location}/vendors/clay"
 
     include "magic_memory/premake5.lua"
 
