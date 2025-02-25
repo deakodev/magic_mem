@@ -1,5 +1,7 @@
 #include "magic_mem.h"
 
+#include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 
 #define HANDLE_LIMIT 32
@@ -91,8 +93,10 @@ int main(void)
     }
     printf("]\n\n");
 
+    mg_print_arena_layout(arena);
+
     /////////////////////////////////////////////////
-    // Better pattern ///////////////////////////////
+    // Safer pattern ////////////////////////////////
     /////////////////////////////////////////////////
 
     UserString string_to_allocate2 = { "Hello, Safer World!", 18 };
@@ -120,6 +124,8 @@ int main(void)
     // Now we can safely pass the correct handles to functions that expect them
     safer_string_print(&arena, user_string_handle);
     safer_array_print(&arena, user_array_handle);
+
+    mg_print_arena_layout(arena);
 
     return 0;
 } // end of main

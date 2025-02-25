@@ -139,11 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="magic_error.h" />
+    <ClInclude Include="magic_debug.h" />
     <ClInclude Include="magic_mem.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="magic_error.c" />
+    <ClCompile Include="magic_debug.c" />
     <ClCompile Include="magic_mem.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,11 +1,9 @@
 #ifndef MAGIC_MEM_HEADER
 #define MAGIC_MEM_HEADER
 
-#include "magic_error.h"
+#include "magic_debug.h"
 
 #include <stdint.h>
-#include <stdbool.h>
-#include <vadefs.h>
 
 #if !((defined(__STDC__) && __STDC__ == 1 && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || \
 (defined(__cplusplus)) || (defined(_MSC_VER) && _MSC_VER >= 1600))
@@ -24,11 +22,6 @@ typedef struct MgHandle {
     uint32_t offset;
     MgHandleType type;
 } MgHandle;
-
-typedef enum MgStatus {
-    MG_SUCCESS = 0,
-    MG_FAILURE = 1,
-} MgStatus;
 
 typedef struct MgHandleDescriptor {
     MgHandleType type;
