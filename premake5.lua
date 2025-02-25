@@ -1,4 +1,4 @@
-workspace "magic_memory"
+workspace "magic_mem"
     architecture "x64"
     startproject "examples"
     configurations { "debug", "release", "dist" }
@@ -29,11 +29,11 @@ workspace "magic_memory"
     OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
 
     IncludeDir = {}
-    IncludeDir["magic_memory"] = "%{wks.location}/magic_memory"
+    IncludeDir["magic_mem"] = "%{wks.location}/magic_mem"
     IncludeDir["doctest"] = "%{wks.location}/vendors/doctest/doctest"
     IncludeDir["clay"] = "%{wks.location}/vendors/clay"
 
-    include "magic_memory/premake5.lua"
+    include "magic_mem/premake5.lua"
 
     include "examples/premake5.lua"
 

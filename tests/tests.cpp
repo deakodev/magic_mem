@@ -1,96 +1,77 @@
-#include <magic_memory.h>
+#include <magic_mem.h>
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
-#include <iostream>
 
-TEST_SUITE("magic_arena")
+#define HANDLE_LIMIT 32
+
+typedef struct UserString {
+    char data[32];
+} UserString;
+
+typedef uint64_t UserArray[100];
+
+typedef enum UserHandleType {
+    USER_HANDLE_TYPE_INVALID = 0, // always invalid
+    USER_HANDLE_TYPE_STRING  = 1,
+    USER_HANDLE_TYPE_ARRAY   = 2,
+} UserHandleType;
+
+static MgHandleDescriptor handle_descriptors[] = {
+    { .type = USER_HANDLE_TYPE_STRING, .count = HANDLE_LIMIT, .stride = sizeof(UserString) },
+    { .type = USER_HANDLE_TYPE_ARRAY, .count = HANDLE_LIMIT, .stride = sizeof(UserArray) },
+};
+
+static MgArenaDescriptor arena_descriptor = {
+    .arena_name               = "USER_ARENA",
+    .handle_descriptors       = handle_descriptors,
+    .handle_descriptors_count = sizeof(handle_descriptors) / sizeof(MgHandleDescriptor),
+};
+
+TEST_SUITE("mg_arena_create")
 {
-	int status;
+    TEST_CASE("Passing valid handles")
+    {
+        MgArena arena;
+        MgStatus status = mg_arena_create(&arena, &arena_descriptor);
+        REQUIRE(status == MG_SUCCESS);
 
-	Magic_Arena arena;
-	Magic_Arena* arena_ptr = &arena;
+        MgHandle string_handle = mg_handle_create(&arena, USER_HANDLE_TYPE_STRING);
+        CHECK(string_handle.type != USER_HANDLE_TYPE_INVALID);
 
-	int data = 7;
-	int* data_ptr = &data;
-	int oversized_data_array[PAGE_SIZE + 1] = { 0 };
+        MgHandle array_handle = mg_handle_create(&arena, USER_HANDLE_TYPE_ARRAY);
+        CHECK(array_handle.type != USER_HANDLE_TYPE_INVALID);
+    }
 
-	TEST_CASE("magic_arena_allocate")
-	{
-		status = magic_arena_allocate(NULL, PAGE_SIZE);
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_arena_allocate(arena_ptr, 0); /* alloc size sets to min PAGE_SIZE */
-		CHECK(status == MAGIC_STATUS_OK);
-		status = magic_arena_allocate(arena_ptr, PAGE_SIZE);
-		CHECK(status == MAGIC_STATUS_OK);
-	}
+    TEST_CASE("Passing invalid handles")
+    {
+        MgArena arena;
+        MgStatus status = mg_arena_create(&arena, &arena_descriptor);
+        REQUIRE(status == MG_SUCCESS);
 
-	TEST_CASE("magic_arena_write")
-	{
-		status = magic_arena_write(arena_ptr, NULL, sizeof(data));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_arena_write(arena_ptr, (void**)data_ptr, 0);
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_arena_write(arena_ptr, (void**)oversized_data_array, sizeof(oversized_data_array));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_arena_write(arena_ptr, (void**)&data_ptr, sizeof(data));
-		CHECK(status == MAGIC_STATUS_OK);
-		CHECK(*data_ptr == 7);
-	}
+        MgHandle invalid_handle = mg_handle_create(&arena, USER_HANDLE_TYPE_INVALID);
+        CHECK(invalid_handle.type == USER_HANDLE_TYPE_INVALID);
+
+        uint32_t bad_descriptor  = 999;
+        MgHandle invalid_handle2 = mg_handle_create(&arena, bad_descriptor);
+        CHECK(invalid_handle2.type == USER_HANDLE_TYPE_INVALID);
+    }
+
+    TEST_CASE("Exceeding handle count limit")
+    {
+        MgArena arena;
+        MgStatus status = mg_arena_create(&arena, &arena_descriptor);
+        REQUIRE(status == MG_SUCCESS);
+
+        MgHandle handles[HANDLE_LIMIT];
+        for (int i = 0; i < HANDLE_LIMIT; ++i)
+        {
+            handles[i] = mg_handle_create(&arena, USER_HANDLE_TYPE_STRING);
+            CHECK(handles[i].type != USER_HANDLE_TYPE_INVALID);
+        }
+
+        // Try creating one handle over the limit
+        MgHandle handle = mg_handle_create(&arena, USER_HANDLE_TYPE_STRING);
+        CHECK(handle.type == USER_HANDLE_TYPE_INVALID);
+    }
 }
-
-TEST_SUITE("magic_ring")
-{
-	int status;
-
-	Magic_Ring ring;
-	Magic_Ring* ring_ptr = &ring;
-
-	int write_data = 7;
-	int* write_data_ptr = &write_data;
-
-	int read_data;
-	int* read_data_ptr = &read_data;
-
-	int oversized_data_array[PAGE_SIZE + 1] = { 0 };
-
-	TEST_CASE("magic_ring_allocate")
-	{
-		status = magic_ring_allocate(NULL, PAGE_SIZE);
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_allocate(ring_ptr, 0); /* alloc size sets to min PAGE_SIZE */
-		CHECK(status == MAGIC_STATUS_OK);
-		status = magic_ring_allocate(ring_ptr, PAGE_SIZE);
-		CHECK(status == MAGIC_STATUS_OK);
-	}
-	TEST_CASE("magic_ring_write")
-	{
-		status = magic_ring_write(NULL, (void*)write_data_ptr, sizeof(write_data));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_write(ring_ptr, NULL, sizeof(write_data));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_write(ring_ptr, (void*)write_data_ptr, 0);
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_write(ring_ptr, (void*)oversized_data_array, sizeof(oversized_data_array));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_write(ring_ptr, (void*)write_data_ptr, sizeof(write_data));
-		CHECK(status == MAGIC_STATUS_OK);
-		CHECK(*write_data_ptr == 7);
-	}
-
-	TEST_CASE("magic_ring_read")
-	{
-		status = magic_ring_read(NULL, (void*)read_data_ptr, sizeof(read_data));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_read(ring_ptr, NULL, sizeof(read_data));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_read(ring_ptr, (void*)read_data_ptr, 0);
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_read(ring_ptr, (void*)oversized_data_array, sizeof(oversized_data_array));
-		CHECK(status != MAGIC_STATUS_OK);
-		status = magic_ring_read(ring_ptr, (void*)read_data_ptr, sizeof(read_data));
-		CHECK(status == MAGIC_STATUS_OK);
-		CHECK(*read_data_ptr == 7);
-	}
-}
-

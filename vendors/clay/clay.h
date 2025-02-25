@@ -588,6 +588,7 @@ extern "C" {
 // -----------------------------------------
 // IMPLEMENTATION --------------------------
 // -----------------------------------------
+#define CLAY_IMPLEMENTATION
 #ifdef CLAY_IMPLEMENTATION
 #undef CLAY_IMPLEMENTATION
 
@@ -604,6 +605,7 @@ Clay_LayoutConfig CLAY_LAYOUT_DEFAULT = CLAY__DEFAULT_STRUCT;
 Clay_Color Clay__Color_DEFAULT = CLAY__DEFAULT_STRUCT;
 Clay_CornerRadius Clay__CornerRadius_DEFAULT = CLAY__DEFAULT_STRUCT;
 Clay_BorderWidth Clay__BorderWidth_DEFAULT = CLAY__DEFAULT_STRUCT;
+
 
 #define CLAY__ARRAY_DEFINE_FUNCTIONS(typeName, arrayName) \
 \

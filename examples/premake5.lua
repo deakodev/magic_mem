@@ -11,12 +11,12 @@ project "examples"
    includedirs
    {
       "%{prj.location}", 
-	  "%{IncludeDir.magic_memory}",
+	  "%{IncludeDir.magic_mem}",
       "%{IncludeDir.clay}",
    }
 
    links
    {
-      "magic_memory",
+      "magic_mem",
    }
 

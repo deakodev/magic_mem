@@ -1,4 +1,4 @@
-project "magic_memory"
+project "magic_mem"
    kind "StaticLib"
    language "C"
    staticruntime "On"
@@ -9,4 +9,3 @@ project "magic_memory"
    files { "**.h", "**.c" }
 
    includedirs { "%{prj.location}" }
-

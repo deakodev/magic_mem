@@ -14,7 +14,7 @@ extern "C" {
 #define STRINGIFY(s) STRING(s)
 
 #define ERROR_LINE "in " __FILE__ " line " STRINGIFY(__LINE__)
-#define ERROR_PRINT(error)  { magic_error_print((error), ERROR_LINE); }
+#define ERROR_PRINT(error)  { mg_error_print((error), ERROR_LINE); }
 #define ERROR_HANDLE(error) { ERROR_PRINT(error); return MAGIC_STATUS_ERROR; }
 
 #define STATUS(status) do { if((status) != MAGIC_ERROR_NONE) { return MAGIC_STATUS_ERROR; } } while (0)
@@ -29,11 +29,11 @@ extern "C" {
 		MAGIC_ERROR_WRITE_FAILED = 4,
 		MAGIC_ERROR_ARENA_INVALID = 5,
 		MAGIC_ERROR_RING_INVALID = 6
-	} Magic_Error;
+	} MgError;
 
-	extern void magic_error_print(Magic_Error error, const char* location);
-	extern const char* magic_error_name_string(Magic_Error error);
-	extern const char* magic_error_message_string(Magic_Error error);
+	extern void mg_error_print(MgError error, const char* location);
+	extern const char* mg_error_name_string(MgError error);
+	extern const char* mg_error_message_string(MgError error);
 
 #if __cplusplus
 } // end extern "C"

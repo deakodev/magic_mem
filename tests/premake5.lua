@@ -12,12 +12,12 @@ project "tests"
    includedirs
    {
       "%{prj.location}", 
-	  "%{IncludeDir.magic_memory}",
+	  "%{IncludeDir.magic_mem}",
      "%{IncludeDir.spdlog}",
      "%{IncludeDir.doctest}",
    }
 
    links 
    {
-      "magic_memory",
+      "magic_mem",
    }
