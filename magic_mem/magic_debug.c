@@ -7,17 +7,22 @@
 #define ERROR_CASE_NAME(error, message) \
     case error: return #error;
 
-#define ERROR_CASE_MAP(CASE)                                         \
-    CASE(MG_ERROR_NONE, "no error found")                            \
-    CASE(MG_ERROR_ARENA_ALLOC_FAILED, "failed to allocate arena")    \
-    CASE(MG_ERROR_GROUP_CREATION_FAILED, "failed to create group")   \
-    CASE(MG_ERROR_HANDLE_CREATION_FAILED, "failed to create handle") \
-    CASE(MG_ERROR_HANDLE_READ_FAILED, "failed to read handle")       \
-    CASE(MG_ERROR_HANDLE_WRITE_FAILED, "failed to write handle")     \
-    CASE(MG_ERROR_ARENA_INVALID, "arena is invalid")                 \
-    CASE(MG_ERROR_DATA_INVALID, "data is invalid")                   \
-    CASE(MG_ERROR_ARENA_DESC_INVALID, "arena descriptor is invalid") \
-    CASE(MG_ERROR_HANDLE_INVALID, "handle is invalid")
+#define ERROR_CASE_MAP(CASE)                                                \
+    CASE(MG_ERROR_NONE, "no error found")                                   \
+    CASE(MG_ERROR_ARENA_ALLOC_FAILED, "failed to allocate arena")           \
+    CASE(MG_ERROR_ARENA_INVALID, "arena is invalid")                        \
+    CASE(MG_ERROR_ARENA_DESC_INVALID, "arena desc is invalid")              \
+    CASE(MG_ERROR_GROUP_CREATION_FAILED, "failed to create group")          \
+    CASE(MG_ERROR_GROUP_QUERY_FAILED, "failed to find group")               \
+    CASE(MG_ERROR_GROUP_EXHAUSTED, "failed to find free group slot")        \
+    CASE(MG_ERROR_GROUP_SLOT_ALLOC_FAILED, "failed to allocate group slot") \
+    CASE(MG_ERROR_HANDLE_CREATION_FAILED, "failed to create handle")        \
+    CASE(MG_ERROR_HANDLE_TYPE_INVALID, "handle type is invalid")            \
+    CASE(MG_ERROR_HANDLE_READ_FAILED, "failed to read handle")              \
+    CASE(MG_ERROR_HANDLE_WRITE_FAILED, "failed to write handle")            \
+    CASE(MG_ERROR_HANDLE_ERASE_FAILED, "failed to erase handle")            \
+    CASE(MG_ERROR_HANDLE_INVALID, "handle is invalid")                      \
+    CASE(MG_ERROR_DATA_INVALID, "data is invalid")
 
 void mg_error_print(MgStatus error, const char* location)
 {

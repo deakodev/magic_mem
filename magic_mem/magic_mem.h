@@ -3,6 +3,7 @@
 
 #include "magic_debug.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #if !((defined(__STDC__) && __STDC__ == 1 && defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || \
@@ -16,10 +17,15 @@ extern "C" {
 
 #define MG_DEFINE_OPAQUE_HANDLE(object) typedef struct object##_T* object;
 
+enum {
+    MG_HANDLE_INVALID      = 0,
+    MG_HANDLE_TYPE_INVALID = 0,
+};
+
 typedef uint32_t MgHandleType; // zero is reserved for invalid handle
 
 typedef struct MgHandle {
-    uint32_t offset;
+    uint32_t slot_handle;
     MgHandleType type;
 } MgHandle;
 
@@ -39,13 +45,16 @@ MG_DEFINE_OPAQUE_HANDLE(MgSegment);
 MG_DEFINE_OPAQUE_HANDLE(MgBlock);
 MG_DEFINE_OPAQUE_HANDLE(MgArena);
 
-extern MgStatus mg_arena_create(MgArena* arena, MgArenaDescriptor* descriptor);
+extern MgArena* mg_arena_init(MgArenaDescriptor* descriptor);
 
 extern MgHandle mg_handle_create(MgArena* arena, uint32_t handle_type);
+
 extern MgStatus mg_handle_write(MgArena* arena, MgHandle handle, const void* data, size_t size);
 extern const void* mg_handle_read(MgArena* arena, MgHandle handle);
+extern void mg_handle_erase(MgArena* arena, MgHandle handle);
+extern bool mg_handle_valid(MgArena* arena, MgHandle handle);
 
-extern void mg_print_arena_layout(MgArena arena);
+extern void mg_print_arena_layout(MgArena* arena);
 
 #if __cplusplus
 } // end extern "C"
