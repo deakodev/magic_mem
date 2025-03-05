@@ -23,9 +23,8 @@ typedef struct UserArrayHandle {
 } UserArrayHandle;
 
 typedef enum UserHandleType {
-    USER_HANDLE_TYPE_INVALID = 0, // always invalid
-    USER_HANDLE_TYPE_STRING  = 1,
-    USER_HANDLE_TYPE_ARRAY   = 2,
+    USER_HANDLE_TYPE_STRING = 0,
+    USER_HANDLE_TYPE_ARRAY  = 1,
 } UserHandleType;
 
 static MgHandleDescriptor handle_descriptors[] = {
@@ -48,7 +47,7 @@ int main(void)
 
     MgArena* arena = mg_arena_init(&arena_descriptor);
 
-    mg_print_arena_layout(arena);
+    mg_arena_print(arena);
 
     /////////////////////////////////////////////////
     // Vanilla pattern //////////////////////////////
@@ -79,7 +78,7 @@ int main(void)
     }
     printf("]\n\n");
 
-    mg_print_arena_layout(arena);
+    mg_arena_print(arena);
 
     /////////////////////////////////////////////////
     // Safer pattern ////////////////////////////////
@@ -103,7 +102,7 @@ int main(void)
     safer_string_print(arena, user_string_handle);
     safer_array_print(arena, user_array_handle);
 
-    mg_print_arena_layout(arena);
+    mg_arena_print(arena);
 
     /////////////////////////////////////////////////
     // How many handles can we make? ////////////////
@@ -114,19 +113,10 @@ int main(void)
     for (int i = 0; i < 30; i++)
     {
         handles[i] = (UserStringHandle){ mg_handle_create(arena, USER_HANDLE_TYPE_STRING) };
-        if (handles[i].mg_handle.slot_handle == MG_HANDLE_INVALID)
-        {
-            printf("Failed to create handle\n");
-            return MG_ERROR_HANDLE_CREATION_FAILED;
-        }
-        status = mg_handle_write(arena, handles[i].mg_handle, &string_to_allocate, sizeof(UserString));
-        if (status != MG_SUCCESS)
-        {
-            printf("Failed to write data\n");
-            return status;
-        }
+        status     = mg_handle_write(arena, handles[i].mg_handle, &string_to_allocate, sizeof(UserString));
+        MG_STATUS(status);
 
-        mg_print_arena_layout(arena);
+        mg_arena_print(arena);
     }
 
     mg_handle_erase(arena, user_string_handle.mg_handle);
@@ -136,7 +126,7 @@ int main(void)
     status = mg_handle_write(arena, user_string_handle.mg_handle, &string_to_allocate3, sizeof(UserString));
     MG_STATUS(status);
 
-    mg_print_arena_layout(arena);
+    mg_arena_print(arena);
 
     if (mg_handle_valid(arena, user_string_handle.mg_handle))
     {
@@ -149,6 +139,8 @@ int main(void)
         printf("Handle2:\n");
         safer_string_print(arena, user_string_handle2);
     }
+
+    mg_arena_destroy(&arena);
 
 } // end of main
 

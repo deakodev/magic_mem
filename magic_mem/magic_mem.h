@@ -15,13 +15,6 @@
 extern "C" {
 #endif
 
-#define MG_DEFINE_OPAQUE_HANDLE(object) typedef struct object##_T* object;
-
-enum {
-    MG_HANDLE_INVALID      = 0,
-    MG_HANDLE_TYPE_INVALID = 0,
-};
-
 typedef uint32_t MgHandleType; // zero is reserved for invalid handle
 
 typedef struct MgHandle {
@@ -41,20 +34,21 @@ typedef struct MgArenaDescriptor {
     uint32_t handle_descriptors_count;
 } MgArenaDescriptor;
 
+#define MG_DEFINE_OPAQUE_HANDLE(object) typedef struct object##_T* object;
 MG_DEFINE_OPAQUE_HANDLE(MgSegment);
 MG_DEFINE_OPAQUE_HANDLE(MgBlock);
 MG_DEFINE_OPAQUE_HANDLE(MgArena);
 
 extern MgArena* mg_arena_init(MgArenaDescriptor* descriptor);
+extern void mg_arena_destroy(MgArena** arena);
 
 extern MgHandle mg_handle_create(MgArena* arena, uint32_t handle_type);
-
-extern MgStatus mg_handle_write(MgArena* arena, MgHandle handle, const void* data, size_t size);
+extern MgStatus mg_handle_write(MgArena* arena, MgHandle handle, const void* data, size_t data_size);
 extern const void* mg_handle_read(MgArena* arena, MgHandle handle);
 extern void mg_handle_erase(MgArena* arena, MgHandle handle);
 extern bool mg_handle_valid(MgArena* arena, MgHandle handle);
 
-extern void mg_print_arena_layout(MgArena* arena);
+extern void mg_arena_print(MgArena* arena);
 
 #if __cplusplus
 } // end extern "C"

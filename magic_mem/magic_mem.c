@@ -13,6 +13,7 @@
 #define MG_DECODE_GENERATION(handle) ((handle) >> _MG_SLOT_BIT_SHIFT)
 
 enum {
+    _MG_HANDLE_INVALID = 0,
     _MG_SLOT_BIT_SHIFT = 16,
     _MG_SLOT_BIT_MASK  = (1 << _MG_SLOT_BIT_SHIFT) - 1,
 };
@@ -92,10 +93,16 @@ MgArena* mg_arena_init(MgArenaDescriptor* descriptor)
     return (MgArena*)arena_internal;
 }
 
+void mg_arena_destroy(MgArena** arena)
+{
+    _MG_CHECK(arena && *arena, MG_ERROR_ARENA_INVALID);
+    free(*arena);
+    *arena = NULL;
+}
+
 MgHandle mg_handle_create(MgArena* arena, uint32_t handle_type)
 {
-    _MG_CHECK(arena, MG_ERROR_HANDLE_CREATION_FAILED);
-    _MG_CHECK(handle_type > 0, MG_ERROR_HANDLE_INVALID);
+    _MG_CHECK(arena, MG_ERROR_ARENA_INVALID);
     _MgArena* arena_internal = (_MgArena*)arena;
 
     _MgGroup* group = _mg_group_query(arena_internal, handle_type);
@@ -112,7 +119,7 @@ MgHandle mg_handle_create(MgArena* arena, uint32_t handle_type)
 MgStatus mg_handle_write(MgArena* arena, MgHandle handle, const void* data, size_t data_size)
 {
     _MG_STATUS(arena, MG_ERROR_ARENA_INVALID);
-    _MG_STATUS(handle.slot_handle != MG_HANDLE_INVALID, MG_ERROR_HANDLE_INVALID);
+    _MG_STATUS(handle.slot_handle != _MG_HANDLE_INVALID, MG_ERROR_HANDLE_INVALID);
     _MG_STATUS(data && data_size > 0, MG_ERROR_DATA_INVALID);
     _MgArena* arena_internal = (_MgArena*)arena;
 
@@ -135,7 +142,7 @@ MgStatus mg_handle_write(MgArena* arena, MgHandle handle, const void* data, size
 const void* mg_handle_read(MgArena* arena, MgHandle handle)
 {
     _MG_CHECK(arena, MG_ERROR_ARENA_INVALID);
-    _MG_CHECK(handle.slot_handle != MG_HANDLE_INVALID, MG_ERROR_HANDLE_INVALID);
+    _MG_CHECK(handle.slot_handle != _MG_HANDLE_INVALID, MG_ERROR_HANDLE_INVALID);
     _MgArena* arena_internal = (_MgArena*)arena;
 
     _MgGroup* group = _mg_group_query(arena_internal, handle.type);
@@ -195,7 +202,7 @@ bool mg_handle_valid(MgArena* arena, MgHandle handle)
     return valid;
 }
 
-void mg_print_arena_layout(MgArena* arena)
+void mg_arena_print(MgArena* arena)
 {
     _MG_CHECK(arena, MG_ERROR_ARENA_INVALID);
     _MgArena* arena_internal = (_MgArena*)arena;
@@ -226,7 +233,7 @@ void mg_print_arena_layout(MgArena* arena)
 static MgStatus _mg_group_init(_MgGroup* group, uintptr_t slots_start, MgHandleDescriptor* descriptor)
 {
     _MG_STATUS(group && descriptor, MG_ERROR_GROUP_CREATION_FAILED);
-    _MG_STATUS(descriptor->type > 0 && descriptor->count > 0 && descriptor->stride > 0, MG_ERROR_GROUP_CREATION_FAILED);
+    _MG_STATUS(descriptor->count > 0 && descriptor->stride > 0, MG_ERROR_GROUP_CREATION_FAILED);
 
     size_t slot_count = descriptor->count + 1; // include invalid slot 0
 
@@ -266,7 +273,7 @@ static MgStatus _mg_group_init(_MgGroup* group, uintptr_t slots_start, MgHandleD
 static _MgGroup* _mg_group_query(_MgArena* arena_internal, uint32_t handle_type)
 {
     _MG_CHECK(arena_internal, MG_ERROR_ARENA_INVALID);
-    _MG_CHECK(handle_type > 0 && handle_type <= arena_internal->group_count, MG_ERROR_HANDLE_TYPE_INVALID);
+    _MG_CHECK(handle_type <= arena_internal->group_count, MG_ERROR_HANDLE_TYPE_INVALID);
 
     for (uint32_t i = 0; i < arena_internal->group_count; i++)
     {
